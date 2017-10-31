@@ -1,5 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App/App";
+import { Box } from "grid-styled";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import Router from "./pages/router";
+
+ReactDOM.render(
+  <Box>
+    <Router />
+  </Box>,
+  document.getElementById("root")
+);
