@@ -15,22 +15,23 @@ const SET_IMAGES = 'GALLERY_SET_IMAGES';
 
 // Reducer
 const galleriesReducer = (state = initialState, action) => {
-  const newState = Object.assign({}, state);
   const { gallery } = action;
 
   switch (action.type) {
     case INIT:
-      newState[gallery.name] = getDefaultGallery(gallery.name);
-      return newState;
+      return {
+        ...state,
+        [gallery.name]: getDefaultGallery(gallery.name)
+      };
     case SET_IMAGES:
-      newState[gallery.name] = Object.assign(
-        {
-          page: newState[gallery.name].page + 1,
-          items: [...newState[gallery.name].items, ...gallery.newItems]
-        },
-        newState[gallery.name]
-      );
-      return newState;
+      return {
+        ...state,
+        [gallery.name]: {
+          ...state[gallery.name],
+          page: state[gallery.name].page + 1,
+          items: [...state[gallery.name].items, ...gallery.newItems]
+        }
+      };
     default:
       return state;
   }

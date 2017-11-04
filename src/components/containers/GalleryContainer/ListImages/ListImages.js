@@ -17,7 +17,6 @@ class ListImages extends Component {
     const { items } = this.props;
 
     return items.map(item => {
-      console.log(item.urls.thumb);
       return <Box>{item.urls.thumb}</Box>;
     });
   };
