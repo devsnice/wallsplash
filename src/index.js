@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Box } from "grid-styled";
+import { Provider } from "react-redux";
 
 import Router from "./pages/router";
+import store from "./store/store";
 
 ReactDOM.render(
-  <Box>
+  <Provider store={store}>
     <Router />
-  </Box>,
+  </Provider>,
   document.getElementById("root")
 );
