@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Box } from 'grid-styled';
+import { Box, Flex } from 'grid-styled';
 
 class ListImages extends Component {
   static propTypes = {
@@ -17,12 +17,20 @@ class ListImages extends Component {
     const { items } = this.props;
 
     return items.map(item => {
-      return <Box>{item.urls.thumb}</Box>;
+      return (
+        <Box width={['96%', '48%', '31%']} mb="20px" key={item.id}>
+          <img width="100%" src={item.urls.small} />
+        </Box>
+      );
     });
   };
 
   render() {
-    return <Box>{this.renderImages()}</Box>;
+    return (
+      <Flex justify="space-between" align="flex-start" width="100%" wrap>
+        {this.renderImages()}
+      </Flex>
+    );
   }
 }
 

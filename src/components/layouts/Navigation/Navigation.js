@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Box } from 'grid-styled';
+import { Flex } from 'grid-styled';
 
 import { Link } from 'react-router-dom';
 
 const NavigationLink = styled(Link)`
   font-size: 18px;
   line-height: 24px;
+  margin-right: 30px;
 `;
 
 class Navigation extends Component {
   render() {
     return (
-      <Box className="app-navigation">
+      <Flex m="40px 0" className="app-navigation">
         <NavigationLink to="/">Explore</NavigationLink>
-      </Box>
+        <NavigationLink to="/">Favorites</NavigationLink>
+        <NavigationLink to="/">Sets</NavigationLink>
+      </Flex>
     );
   }
 }
