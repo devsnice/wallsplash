@@ -1,10 +1,12 @@
+import unsplashService from '../../services/usplashService';
+
 // Initial state
 const initialState = {
   name: ''
 };
 
 // Actions
-const AUTH = 'user/auth';
+const AUTH = 'USER_AUTH';
 
 // Reducer
 const userReducer = (state = initialState, action) => {
@@ -12,7 +14,7 @@ const userReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case AUTH:
-      newState.name = 'nonename';
+      newState.name = action.payload.name;
       return newState;
     default:
       return state;
@@ -21,7 +23,12 @@ const userReducer = (state = initialState, action) => {
 
 // Action creators
 export function auth() {
-  return { type: AUTH };
+  return {
+    type: AUTH,
+    payload: {
+      name: 'test'
+    }
+  };
 }
 
 export default userReducer;
