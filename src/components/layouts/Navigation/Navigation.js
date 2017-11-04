@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import { Box } from "grid-styled";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Box } from 'grid-styled';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const NavigationLink = styled(Link)`
   font-size: 18px;

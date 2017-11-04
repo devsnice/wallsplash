@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import { Box } from "grid-styled";
+import { Box } from 'grid-styled';
 
-import Navigation from "../../components/layouts/Navigation/Navigation";
-import Layout from "../../components/layouts/Layout/Layout";
+import Navigation from '../../components/layouts/Navigation/Navigation';
+import Layout from '../../components/layouts/Layout/Layout';
 
-import * as userActions from "../../store/models/user";
+import * as userActions from '../../store/models/user';
 
 class MainPage extends Component {
   static propTypes = {

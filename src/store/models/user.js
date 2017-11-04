@@ -1,10 +1,10 @@
 // Initial state
 const initialState = {
-  name: ""
+  name: ''
 };
 
 // Actions
-const AUTH = "user/auth";
+const AUTH = 'user/auth';
 
 // Reducer
 const userReducer = (state = initialState, action) => {
@@ -12,7 +12,7 @@ const userReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case AUTH:
-      newState.name = "nonename";
+      newState.name = 'nonename';
       return newState;
     default:
       return state;
