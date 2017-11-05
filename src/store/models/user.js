@@ -2,32 +2,33 @@ import unsplashService from '../../services/usplashService';
 
 // Initial state
 const initialState = {
-  name: ''
+  unsplash: {},
+  isAuth: false
 };
 
 // Actions
-const AUTH = 'USER_AUTH';
+const UNSPLASH_AUTH_SUCCESS = 'USER_UNSPLASH_AUTH_SUCCESS';
 
 // Reducer
 const userReducer = (state = initialState, action) => {
-  const newState = Object.assign({}, state);
-
   switch (action.type) {
-    case AUTH:
-      newState.name = action.payload.name;
-      return newState;
+    case UNSPLASH_AUTH_SUCCESS:
+      return {
+        ...state,
+        unsplash: action.user,
+        isAuth: true
+      };
+
     default:
       return state;
   }
 };
 
 // Action creators
-export function auth() {
+export function authSuccess({ user }) {
   return {
-    type: AUTH,
-    payload: {
-      name: 'test'
-    }
+    type: UNSPLASH_AUTH_SUCCESS,
+    user
   };
 }
 

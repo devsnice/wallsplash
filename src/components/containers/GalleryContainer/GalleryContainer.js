@@ -34,7 +34,7 @@ class GalleryContainer extends Component {
   handlerLoadImages = async () => {
     const { name, gallery, setImages } = this.props;
 
-    const images = await unsplashService.getPhotos({
+    const images = await unsplashService.getImages({
       name,
       amountPerPage: gallery.amountPerPage,
       page: gallery.page

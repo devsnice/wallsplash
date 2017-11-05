@@ -1,13 +1,19 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import MainPage from './MainPage/MainPage';
+import FavoritesPage from './FavoritesPage/FavoritesPage';
+import UnsplashAuthPage from './UnsplashAuthPage/UnsplashAuthPage';
 
 class Router extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <Route exact path="/" component={MainPage} />
+        <Switch>
+          <Route exact path="/" component={MainPage} />
+          <Route path="/favorites" component={FavoritesPage} />
+          <Route path="/auth" component={UnsplashAuthPage} />
+        </Switch>
       </BrowserRouter>
     );
   }

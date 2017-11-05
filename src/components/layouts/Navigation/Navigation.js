@@ -15,8 +15,7 @@ class Navigation extends Component {
     return (
       <Flex m="40px 0" className="app-navigation">
         <NavigationLink to="/">Explore</NavigationLink>
-        <NavigationLink to="/">Favorites</NavigationLink>
-        <NavigationLink to="/">Sets</NavigationLink>
+        <NavigationLink to="/favorites">Favorites</NavigationLink>
       </Flex>
     );
   }
