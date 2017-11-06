@@ -14,10 +14,19 @@ const unsplash = new Unsplash({
   callbackUrl: config.CALLBACK_URL
 });
 
+// Write function for chain promise after request to server, there's error with status of request
+
+const checkError = response => {
+  if (response.status === 200) return response;
+
+  throw response.type;
+};
+
 const mainGallery = {
   getImages: async ({ amountPerPage, page }) => {
     const images = await unsplash.photos
       .listPhotos(page, amountPerPage, 'latest')
+      .then(checkError)
       .then(toJson);
 
     return images;
@@ -28,6 +37,7 @@ const favoriteGallery = {
   getImages: async ({ amountPerPage, page, username }) => {
     const images = await unsplash.users
       .likes(username, page, amountPerPage, 'latest')
+      .then(checkError)
       .then(toJson);
 
     return images;
@@ -52,6 +62,7 @@ const unsplashService = {
   userAuthentication: async code => {
     const accessToken = await unsplash.auth
       .userAuthentication(code)
+      .then(checkError)
       .then(toJson)
       .then(json => json.access_token)
       .then(token => {
@@ -64,7 +75,10 @@ const unsplashService = {
     await unsplash.auth.setBearerToken(accessToken);
   },
   getCurrentUser: async () => {
-    const user = await unsplash.currentUser.profile().then(toJson);
+    const user = await unsplash.currentUser
+      .profile()
+      .then(checkError)
+      .then(toJson);
 
     return user;
   },

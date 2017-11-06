@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 
 import unsplashService from '../../services/usplashService';
-import storageService from '../../services/storageService';
 import * as userActions from '../../store/models/user';
 
 import Layout from '../../components/layouts/Layout/Layout';
@@ -29,7 +28,6 @@ class AuthPage extends Component {
     this.authUser(searchQuery.code);
   }
 
-  // TODO: errors, move this logic to saga
   authUser = async code => {
     const userAccessToken = await unsplashService.userAuthentication(code);
 

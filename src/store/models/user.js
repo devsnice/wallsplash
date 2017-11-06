@@ -60,14 +60,28 @@ export function authSuccess({ user }) {
   };
 }
 
-export const authUser = accessToken => async dispatch => {
-  const userAccessToken = accessToken || storageService.get('accessToken');
+export const authUser = newAccessToken => async dispatch => {
+  const userAccessToken = newAccessToken || storageService.get('accessToken');
 
   dispatch(authPending());
 
+  if (newAccessToken) {
+    storageService.set('accessToken', newAccessToken);
+  }
+
   if (userAccessToken) {
     await unsplashService.setBearerToken(userAccessToken);
-    const user = await unsplashService.getCurrentUser();
+
+    const cacheUser = storageService.get('user');
+    let user = {};
+
+    if (!cacheUser) {
+      user = await unsplashService.getCurrentUser();
+
+      storageService.set('user', JSON.stringify(user));
+    } else {
+      user = JSON.parse(cacheUser);
+    }
 
     dispatch(authSuccess({ user }));
   } else {

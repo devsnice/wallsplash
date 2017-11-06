@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Box } from 'grid-styled';
 
-import MainPage from './MainPage/MainPage';
+import ExplorePage from './ExplorePage/ExplorePage';
 import FavoritesPage from './FavoritesPage/FavoritesPage';
 import UnsplashAuthPage from './UnsplashAuthPage/UnsplashAuthPage';
 
@@ -25,21 +25,15 @@ class Application extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
-
-    if (!user.isPending) {
-      return (
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={MainPage} />
-            <Route path="/favorites" component={FavoritesPage} />
-            <Route path="/auth" component={UnsplashAuthPage} />
-          </Switch>
-        </BrowserRouter>
-      );
-    }
-
-    return <Box>Is pending</Box>;
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ExplorePage} />
+          <Route path="/favorites" component={FavoritesPage} />
+          <Route path="/auth" component={UnsplashAuthPage} />
+        </Switch>
+      </BrowserRouter>
+    );
   }
 }
 

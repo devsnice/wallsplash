@@ -8,8 +8,6 @@ import ListImages from './ListImages/ListImages';
 
 import * as galleryActions from '../../../store/models/galleries';
 
-import unsplashService from '../../../services/usplashService';
-
 class GalleryContainer extends Component {
   static propTypes = {
     name: PropTypes.oneOf(['main', 'favorite', 'sets']).isRequired,
@@ -19,13 +17,16 @@ class GalleryContainer extends Component {
       amountPerPage: PropTypes.number,
       isLoading: PropTypes.bool
     }).isRequired,
-    username: PropTypes.string.isRequired
+    username: PropTypes.string,
+    init: PropTypes.func.isRequired,
+    loadImages: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     gallery: {
       items: []
-    }
+    },
+    username: null
   };
 
   componentWillMount() {
@@ -33,19 +34,9 @@ class GalleryContainer extends Component {
   }
 
   handlerLoadImages = async () => {
-    const { name, gallery, setImages, username } = this.props;
+    const { name, gallery, username } = this.props;
 
-    const images = await unsplashService.getImages({
-      name,
-      amountPerPage: gallery.amountPerPage,
-      page: gallery.page,
-      username
-    });
-
-    setImages({
-      name,
-      items: images
-    });
+    this.props.loadImages({ name, username, gallery });
   };
 
   render() {

@@ -1,3 +1,5 @@
+import unsplashService from '../../services/usplashService';
+
 // Initial state
 const initialState = {};
 
@@ -6,7 +8,8 @@ const getDefaultGallery = name => ({
   page: 0,
   items: [],
   amountPerPage: 15,
-  isLoading: false
+  isLoading: false,
+  error: null
 });
 
 // Actions
@@ -38,6 +41,7 @@ const galleriesReducer = (state = initialState, action) => {
 };
 
 // Action creators
+
 export function init({ name }) {
   return {
     type: INIT,
@@ -56,5 +60,26 @@ export function setImages({ name, items }) {
     }
   };
 }
+
+export const loadImages = ({ name, username, gallery }) => async dispatch => {
+  // TODO: try/catch vs {error: '', data: {}}
+  try {
+    const images = await unsplashService.getImages({
+      name,
+      amountPerPage: gallery.amountPerPage,
+      page: gallery.page,
+      username
+    });
+
+    dispatch(
+      setImages({
+        name,
+        items: images
+      })
+    );
+  } catch (error) {
+    // TODO: failure
+  }
+};
 
 export default galleriesReducer;

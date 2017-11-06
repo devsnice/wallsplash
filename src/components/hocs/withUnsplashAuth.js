@@ -27,7 +27,9 @@ const withUnsplashAuth = WrappedPage => {
     }
 
     render() {
-      const { userProfile } = this.props;
+      const { userProfile, isAuth } = this.props;
+
+      if (!isAuth) return <Box>400</Box>;
 
       return <WrappedPage userProfile={userProfile} />;
     }

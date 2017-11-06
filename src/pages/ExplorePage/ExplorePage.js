@@ -7,7 +7,7 @@ import Layout from '../../components/layouts/Layout/Layout';
 
 import GalleryContainer from '../../components/containers/GalleryContainer/GalleryContainer';
 
-class MainPage extends Component {
+class ExplorePage extends Component {
   render() {
     return (
       <Layout>
@@ -21,4 +21,4 @@ class MainPage extends Component {
   }
 }
 
-export default MainPage;
+export default ExplorePage;
