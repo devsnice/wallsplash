@@ -10,6 +10,7 @@ const withUnsplashAuth = WrappedPage => {
   class ComponentWithUnsplashAuth extends Component {
     static propTypes = {
       isAuth: PropTypes.bool.isRequired,
+      userProfile: PropTypes.object.isRequired,
       match: PropTypes.shape({
         url: PropTypes.string
       })
@@ -26,13 +27,16 @@ const withUnsplashAuth = WrappedPage => {
     }
 
     render() {
-      return <WrappedPage />;
+      const { userProfile } = this.props;
+
+      return <WrappedPage userProfile={userProfile} />;
     }
   }
 
   return connect((state, props) => {
     return {
-      isAuth: state.user.isAuth
+      isAuth: state.user.isAuth,
+      userProfile: state.user.unsplash
     };
   })(ComponentWithUnsplashAuth);
 };

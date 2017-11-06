@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import { Box } from 'grid-styled';
 
 import Navigation from '../../components/layouts/Navigation/Navigation';
@@ -9,12 +11,20 @@ import GalleryContainer from '../../components/containers/GalleryContainer/Galle
 import withUnsplashAuth from '../../components/hocs/withUnsplashAuth';
 
 class FavoritesPage extends Component {
+  static propTypes = {
+    userProfile: PropTypes.object.isRequired
+  };
+
   render() {
+    const { username } = this.props.userProfile;
+
     return (
       <Layout>
         <Navigation />
 
-        <Box />
+        <Box>
+          <GalleryContainer name="favorite" username={username} />
+        </Box>
       </Layout>
     );
   }

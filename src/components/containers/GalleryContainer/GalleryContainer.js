@@ -18,7 +18,8 @@ class GalleryContainer extends Component {
       page: PropTypes.number,
       amountPerPage: PropTypes.number,
       isLoading: PropTypes.bool
-    }).isRequired
+    }).isRequired,
+    username: PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -32,12 +33,13 @@ class GalleryContainer extends Component {
   }
 
   handlerLoadImages = async () => {
-    const { name, gallery, setImages } = this.props;
+    const { name, gallery, setImages, username } = this.props;
 
     const images = await unsplashService.getImages({
       name,
       amountPerPage: gallery.amountPerPage,
-      page: gallery.page
+      page: gallery.page,
+      username
     });
 
     setImages({

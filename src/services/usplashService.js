@@ -17,7 +17,7 @@ const unsplash = new Unsplash({
 const mainGallery = {
   getImages: async ({ amountPerPage, page }) => {
     const images = await unsplash.photos
-      .listPhotos(page + 1, amountPerPage, 'latest')
+      .listPhotos(page, amountPerPage, 'latest')
       .then(toJson);
 
     return images;
@@ -25,9 +25,9 @@ const mainGallery = {
 };
 
 const favoriteGallery = {
-  getImages: async ({ amountPerPage, page }) => {
-    const images = await unsplash.photos
-      .listPhotos(page + 1, amountPerPage, 'latest')
+  getImages: async ({ amountPerPage, page, username }) => {
+    const images = await unsplash.users
+      .likes(username, page, amountPerPage, 'latest')
       .then(toJson);
 
     return images;
@@ -58,16 +58,17 @@ const unsplashService = {
         return token;
       });
 
-    unsplash.auth.setBearerToken(accessToken);
-
     return accessToken;
+  },
+  setBearerToken: async accessToken => {
+    await unsplash.auth.setBearerToken(accessToken);
   },
   getCurrentUser: async () => {
     const user = await unsplash.currentUser.profile().then(toJson);
 
     return user;
   },
-  getImages: async ({ name, amountPerPage, page }) => {
+  getImages: async ({ name, amountPerPage, page, username }) => {
     let images = null;
 
     switch (name) {
@@ -75,7 +76,11 @@ const unsplashService = {
         images = await mainGallery.getImages({ amountPerPage, page });
         break;
       case 'favorite':
-        images = await favoriteGallery.getImages({ amountPerPage, page });
+        images = await favoriteGallery.getImages({
+          amountPerPage,
+          page,
+          username
+        });
         break;
       default:
         throw new Error(
