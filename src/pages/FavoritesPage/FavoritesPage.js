@@ -6,7 +6,7 @@ import Layout from '../../components/layouts/Layout/Layout';
 
 import GalleryContainer from '../../components/containers/GalleryContainer/GalleryContainer';
 
-import withUnsplashAuth from '../../hocs/withUnsplashAuth';
+import withUnsplashAuth from '../../components/hocs/withUnsplashAuth';
 
 class FavoritesPage extends Component {
   render() {
