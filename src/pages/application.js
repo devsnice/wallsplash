@@ -28,7 +28,7 @@ class Application extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={ExplorePage} />
+          <Route path="/" component={ExplorePage} />
           <Route path="/favorites" component={FavoritesPage} />
           <Route path="/auth" component={UnsplashAuthPage} />
         </Switch>
