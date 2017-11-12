@@ -13,6 +13,7 @@ import * as userActions from '../store/models/user';
 
 import storageService from '../services/storageService';
 import unsplashService from '../services/usplashService';
+import imageService from '../services/imageService';
 
 class Application extends React.Component {
   static propTypes = {
@@ -23,6 +24,14 @@ class Application extends React.Component {
   componentWillMount() {
     this.props.authUser();
   }
+
+  componentDidMount() {
+    this.subcribeOnIpcActions();
+  }
+
+  subcribeOnIpcActions = () => {
+    imageService.subscribeOnIpcEvents();
+  };
 
   render() {
     return (
