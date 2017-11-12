@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Box, Flex } from 'grid-styled';
 
-const { ipcRenderer } = window.require('electron');
-
-const EVENTS = {
-  WALLPAPER_SET: 'WALLPAPER_SET'
-};
+import imageService from '../../../../services/imageService';
 
 const ImageWrapper = styled(Box)`position: relative;`;
 const ImageActions = styled(Flex)`
@@ -40,9 +36,8 @@ class GalleryImage extends Component {
   handleSetImageAsWallpaper = () => {
     const { image: { urls: { full }, id } } = this.props;
 
-    // example:: set current image as desktop image through the main process
-    ipcRenderer.send(EVENTS.WALLPAPER_SET, {
-      uri: full,
+    imageService.setImageAsWallpaper({
+      imageUrl: full,
       name: id
     });
   };
