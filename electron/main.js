@@ -2,6 +2,8 @@ const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
 
+const ipcModules = require('./ipcModules/ipcModules.js');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
@@ -20,6 +22,8 @@ function createWindow() {
         });
 
   win.loadURL(applicationUrl);
+
+  ipcModules.initIpcModules();
 
   if (process.env.ELECTRON_ENV === 'dev') {
     win.webContents.openDevTools();
