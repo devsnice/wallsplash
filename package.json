@@ -26,8 +26,10 @@
     "redux": "^3.7.2",
     "redux-devtools": "^3.4.0",
     "redux-thunk": "^2.2.0",
+    "request": "^2.83.0",
     "styled-components": "^2.2.3",
-    "unsplash-js": "^4.7.0"
+    "unsplash-js": "^4.7.0",
+    "wallpaper": "^2.5.0"
   },
   "devDependencies": {
     "cross-env": "^5.1.1",
