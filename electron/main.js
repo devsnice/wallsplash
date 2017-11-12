@@ -10,7 +10,6 @@ function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({ width: 800, height: 600 });
 
-  // and load the index.html of the app.
   const applicationUrl =
     process.env.ELECTRON_ENV === 'dev'
       ? 'http://localhost:3000/'

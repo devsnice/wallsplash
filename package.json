@@ -8,9 +8,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "electron-start-dev":
-      "cross-env ELECTRON_ENV=dev yarn start && electron electron/main.js",
+      "yarn start && cd electron && cross-env ELECTRON_ENV=dev electron main.js",
     "electron-start-prod":
-      "cross-env ELECTRON_ENV=prod yarn build && electron electron/main.js",
+      "yarn build && cd electron && cross-env ELECTRON_ENV=prod electron main.js",
     "eject": "react-scripts eject"
   },
   "dependencies": {
