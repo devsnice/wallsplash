@@ -21,20 +21,20 @@ const setImageAsWallpaper = ({ imageUrl, name }) => {
   }
 };
 
-const subscribeOnIpcEvents = () => {
+const subscribeOnIpcEvents = ({ onIsPending, onSuccess, onFailure }) => {
   if (window.require) {
     const { ipcRenderer } = window.require('electron');
 
     ipcRenderer.on(EVENTS_ON.WALLPAPER_IS_PENDING, (event, msg) => {
-      console.log('EVENTS_ON.WALLPAPER_IS_PENDING', msg);
+      onIsPending(msg);
     });
 
     ipcRenderer.on(EVENTS_ON.WALLPAPER_SUCCESS, (event, msg) => {
-      console.log('WALLPAPER_SUCCESS', msg);
+      onSuccess(msg);
     });
 
     ipcRenderer.on(EVENTS_ON.WALLPAPER_FAILURE, (event, msg) => {
-      console.log('WALLPAPER_FAILURE', msg);
+      onFailure(msg);
     });
   } else {
     throw new Error("You couldn't subscribe throw web-site");

@@ -9,7 +9,10 @@ import ExplorePage from './ExplorePage/ExplorePage';
 import FavoritesPage from './FavoritesPage/FavoritesPage';
 import UnsplashAuthPage from './UnsplashAuthPage/UnsplashAuthPage';
 
+import Loader from '../components/units/Loader/Loader';
+
 import * as userActions from '../store/models/user';
+import * as galleriesActions from '../store/models/galleries';
 
 import storageService from '../services/storageService';
 import unsplashService from '../services/usplashService';
@@ -18,11 +21,13 @@ import imageService from '../services/imageService';
 class Application extends React.Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
-    authUser: PropTypes.func.isRequired
+    isLoading: PropTypes.bool.isRequired,
+    userActions: PropTypes.object.isRequired,
+    galleriesActions: PropTypes.object.isRequired
   };
 
   componentWillMount() {
-    this.props.authUser();
+    this.props.userActions.authUser();
   }
 
   componentDidMount() {
@@ -30,18 +35,36 @@ class Application extends React.Component {
   }
 
   subcribeOnIpcActions = () => {
-    imageService.subscribeOnIpcEvents();
+    const { galleriesActions } = this.props;
+
+    imageService.subscribeOnIpcEvents({
+      onIsPending: msg => {
+        galleriesActions.imageSetAsDesktopIsPending();
+      },
+      onSuccess: msg => {
+        galleriesActions.imageSetAsDesktopIsSuccess();
+      },
+      onFailure: msg => {
+        galleriesActions.imageSetAsDesktopIsFailure();
+      }
+    });
   };
 
   render() {
+    const { isLoading } = this.props;
+
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" component={ExplorePage} />
-          <Route path="/favorites" component={FavoritesPage} />
-          <Route path="/auth" component={UnsplashAuthPage} />
-        </Switch>
-      </BrowserRouter>
+      <Box>
+        <Loader isLoading={isLoading} />
+
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" component={ExplorePage} />
+            <Route path="/favorites" component={FavoritesPage} />
+            <Route path="/auth" component={UnsplashAuthPage} />
+          </Switch>
+        </BrowserRouter>
+      </Box>
     );
   }
 }
@@ -49,10 +72,14 @@ class Application extends React.Component {
 export default connect(
   (state, props) => {
     return {
-      user: state.user
+      user: state.user,
+      isLoading: state.loader.isLoading
     };
   },
   dispatch => {
-    return bindActionCreators(userActions, dispatch);
+    return {
+      userActions: bindActionCreators(userActions, dispatch),
+      galleriesActions: bindActionCreators(galleriesActions, dispatch)
+    };
   }
 )(Application);

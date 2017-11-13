@@ -1,5 +1,7 @@
 import unsplashService from '../../services/usplashService';
 
+import * as loaderActions from './loader';
+
 // Initial state
 const initialState = {};
 
@@ -13,20 +15,20 @@ const getDefaultGallery = name => ({
 });
 
 // Actions
-const INIT = 'GALLERY_INIT';
-const SET_IMAGES = 'GALLERY_SET_IMAGES';
+const GALLERY_INIT = 'GALLERY_INIT';
+const GALLERY_SET_IMAGES = 'GALLERY_SET_IMAGES';
 
 // Reducer
 const galleriesReducer = (state = initialState, action) => {
   const { gallery } = action;
 
   switch (action.type) {
-    case INIT:
+    case GALLERY_INIT:
       return {
         ...state,
         [gallery.name]: getDefaultGallery(gallery.name)
       };
-    case SET_IMAGES:
+    case GALLERY_SET_IMAGES:
       return {
         ...state,
         [gallery.name]: {
@@ -41,25 +43,24 @@ const galleriesReducer = (state = initialState, action) => {
 };
 
 // Action creators
-
-export function init({ name }) {
+export const init = ({ name }) => {
   return {
-    type: INIT,
+    type: GALLERY_INIT,
     gallery: {
       name
     }
   };
-}
+};
 
-export function setImages({ name, items }) {
+export const setImages = ({ name, items }) => {
   return {
-    type: SET_IMAGES,
+    type: GALLERY_SET_IMAGES,
     gallery: {
       name,
       newItems: items
     }
   };
-}
+};
 
 export const loadImages = ({ name, username, gallery }) => async dispatch => {
   // TODO: try/catch vs {error: '', data: {}}
@@ -80,6 +81,20 @@ export const loadImages = ({ name, username, gallery }) => async dispatch => {
   } catch (error) {
     // TODO: failure
   }
+};
+
+export const imageSetAsDesktopIsPending = () => dispatch => {
+  dispatch(loaderActions.loaderOn());
+};
+
+export const imageSetAsDesktopIsSuccess = () => dispatch => {
+  // some logic
+  dispatch(loaderActions.loaderOff());
+};
+
+export const imageSetAsDesktopIsFailure = () => dispatch => {
+  // some logic
+  dispatch(loaderActions.loaderOff());
 };
 
 export default galleriesReducer;
