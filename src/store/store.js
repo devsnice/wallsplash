@@ -4,8 +4,9 @@ import thunk from 'redux-thunk';
 import user from './models/user';
 import galleries from './models/galleries';
 import loader from './models/loader';
+import modal from './models/modal';
 
-const reducer = combineReducers({ user, galleries, loader });
+const reducer = combineReducers({ user, galleries, loader, modal });
 
 const store = createStore(
   reducer,

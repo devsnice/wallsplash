@@ -10,6 +10,9 @@ import FavoritesPage from './FavoritesPage/FavoritesPage';
 import UnsplashAuthPage from './UnsplashAuthPage/UnsplashAuthPage';
 
 import Loader from '../components/units/Loader/Loader';
+import Popup from '../components/units/Popup/Popup';
+
+import Modal from '../components/containers/Modal/Modal';
 
 import * as userActions from '../store/models/user';
 import * as galleriesActions from '../store/models/galleries';
@@ -55,8 +58,6 @@ class Application extends React.Component {
 
     return (
       <Box>
-        <Loader isLoading={isLoading} />
-
         <BrowserRouter>
           <Switch>
             <Route path="/" component={ExplorePage} />
@@ -64,6 +65,9 @@ class Application extends React.Component {
             <Route path="/auth" component={UnsplashAuthPage} />
           </Switch>
         </BrowserRouter>
+
+        <Modal />
+        <Loader isLoading={isLoading} />
       </Box>
     );
   }

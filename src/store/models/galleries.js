@@ -1,6 +1,7 @@
 import unsplashService from '../../services/usplashService';
 
 import * as loaderActions from './loader';
+import * as modalActions from './modal';
 
 // Initial state
 const initialState = {};
@@ -89,6 +90,7 @@ export const imageSetAsDesktopIsPending = () => dispatch => {
 
 export const imageSetAsDesktopIsSuccess = () => dispatch => {
   // some logic
+  dispatch(modalActions.open({}));
   dispatch(loaderActions.loaderOff());
 };
 

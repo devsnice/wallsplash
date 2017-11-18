@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Flex, Box } from 'grid-styled';
+import Overlay from '../Overlay/Overlay';
 
 class Loader extends Component {
   static propTypes = {
@@ -13,9 +14,11 @@ class Loader extends Component {
 
     if (isLoading) {
       return (
-        <Flex p="20px 0" align="center">
-          <Box>Is loading</Box>
-        </Flex>
+        <Overlay>
+          <Flex p="20px 0" align="center">
+            <Box>Is loading</Box>
+          </Flex>
+        </Overlay>
       );
     }
 

@@ -37,7 +37,7 @@ const subscribeOnIpcEvents = ({ onIsPending, onSuccess, onFailure }) => {
       onFailure(msg);
     });
   } else {
-    throw new Error("You couldn't subscribe throw web-site");
+    console.log(Error("You couldn't subscribe throw web-site"));
   }
 };
 
