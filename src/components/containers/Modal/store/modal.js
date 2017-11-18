@@ -1,7 +1,7 @@
 // Initial state
 const initialState = {
   isOpen: false,
-  type: null,
+  name: null,
   data: {}
 };
 
@@ -30,11 +30,11 @@ const ModalReducer = (state = initialState, action) => {
 
 // Action creators
 
-export function open({ type, data }) {
+export function open({ name, data }) {
   return {
     type: MODAL_OPEN,
     payload: {
-      type,
+      name,
       data
     }
   };

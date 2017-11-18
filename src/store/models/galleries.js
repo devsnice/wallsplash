@@ -1,7 +1,9 @@
 import unsplashService from '../../services/usplashService';
 
 import * as loaderActions from './loader';
-import * as modalActions from './modal';
+import * as modalActions from '../../components/containers/Modal/store/modal';
+
+import MODAL_CONSTANTS from '../../components/containers/Modal/modalConfig';
 
 // Initial state
 const initialState = {};
@@ -89,13 +91,18 @@ export const imageSetAsDesktopIsPending = () => dispatch => {
 };
 
 export const imageSetAsDesktopIsSuccess = () => dispatch => {
-  // some logic
-  dispatch(modalActions.open({}));
   dispatch(loaderActions.loaderOff());
+  dispatch(
+    modalActions.open({
+      name: MODAL_CONSTANTS.IMAGE_SET,
+      data: {
+        test: 'test'
+      }
+    })
+  );
 };
 
 export const imageSetAsDesktopIsFailure = () => dispatch => {
-  // some logic
   dispatch(loaderActions.loaderOff());
 };
 

@@ -6,20 +6,42 @@ import { connect } from 'react-redux';
 import { Box } from 'grid-styled';
 
 import Popup from '../../units/Popup/Popup';
-import * as modalActions from '../../../store/models/modal';
+import * as modalActions from './store/modal';
+
+import { getModalByName } from './modalConfig';
 
 class Modal extends Component {
   static propTypes = {
-    modal: PropTypes.object.isRequired,
+    modal: PropTypes.shape({
+      name: PropTypes.string,
+      data: PropTypes.object
+    }).isRequired,
     actions: PropTypes.object.isRequired
   };
 
+  static defaultProps = {
+    modal: {
+      name: 'null',
+      data: {}
+    }
+  };
+
+  getModalComponent = () => {
+    const { modal } = this.props;
+
+    return getModalByName(modal.name);
+  };
+
   render() {
+    const Component = this.getModalComponent();
+
+    if (!Component) return null;
+
     const { modal, actions } = this.props;
 
     return (
       <Popup isOpen={modal.isOpen} handleClose={actions.close}>
-        <Box>Default Modal</Box>
+        <Component data={modal.data} />
       </Popup>
     );
   }
