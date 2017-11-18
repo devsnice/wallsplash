@@ -1,4 +1,4 @@
-import ImageSetModal from './ImageSetModal/ImageSetModal';
+import ImageSetModal from './modals/ImageSetModal/ImageSetModal';
 
 const CONSTANTS = {
   IMAGE_SET: 'IMAGE_SET'
