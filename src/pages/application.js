@@ -60,7 +60,7 @@ class Application extends React.Component {
       <Box>
         <BrowserRouter>
           <Switch>
-            <Route path="/" component={ExplorePage} />
+            <Route exact path="/" component={ExplorePage} />
             <Route path="/favorites" component={FavoritesPage} />
             <Route path="/auth" component={UnsplashAuthPage} />
           </Switch>

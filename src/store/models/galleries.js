@@ -1,4 +1,5 @@
 import unsplashService from '../../services/usplashService';
+import storageService from '../../services/storageService';
 
 import * as loaderActions from './loader';
 import * as modalActions from '../../components/containers/Modal/store/modal';
@@ -20,6 +21,7 @@ const getDefaultGallery = name => ({
 // Actions
 const GALLERY_INIT = 'GALLERY_INIT';
 const GALLERY_SET_IMAGES = 'GALLERY_SET_IMAGES';
+const GALLERY_SET_IMAGES_FAILURE = 'GALLERY_SET_IMAGES_FAILURE';
 
 // Reducer
 const galleriesReducer = (state = initialState, action) => {
@@ -38,6 +40,14 @@ const galleriesReducer = (state = initialState, action) => {
           ...state[gallery.name],
           page: state[gallery.name].page + 1,
           items: [...state[gallery.name].items, ...gallery.newItems]
+        }
+      };
+    case GALLERY_SET_IMAGES_FAILURE:
+      return {
+        ...state,
+        [gallery.name]: {
+          ...state[gallery.name],
+          error: true
         }
       };
     default:
@@ -65,8 +75,30 @@ export const setImages = ({ name, items }) => {
   };
 };
 
+export const setImagesFailure = ({ name }) => {
+  return {
+    type: GALLERY_SET_IMAGES_FAILURE
+  };
+};
+
 export const loadImages = ({ name, username, gallery }) => async dispatch => {
-  // TODO: try/catch vs {error: '', data: {}}
+  // get images from storage for saving api's requiests
+  if (process.env.NODE_ENV === 'development') {
+    const images = JSON.parse(storageService.get(name));
+
+    if (images) {
+      dispatch(
+        setImages({
+          name,
+          items: images
+        })
+      );
+
+      return;
+    }
+  }
+
+  // get images from api
   try {
     const images = await unsplashService.getImages({
       name,
@@ -75,6 +107,8 @@ export const loadImages = ({ name, username, gallery }) => async dispatch => {
       username
     });
 
+    storageService.set(name, JSON.stringify(images));
+
     dispatch(
       setImages({
         name,
@@ -82,7 +116,11 @@ export const loadImages = ({ name, username, gallery }) => async dispatch => {
       })
     );
   } catch (error) {
-    // TODO: failure
+    dispatch(
+      setImagesFailure({
+        name
+      })
+    );
   }
 };
 
