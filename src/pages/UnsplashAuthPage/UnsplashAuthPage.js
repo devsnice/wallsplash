@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 
 import queryString from 'query-string';
 
+import { Redirect } from 'react-router-dom';
+
 import unsplashService from '../../services/usplashService';
 import * as userActions from '../../store/models/user';
 
@@ -39,7 +41,7 @@ class AuthPage extends Component {
       <Layout>
         <Navigation />
 
-        {this.props.user.name ? this.props.user.name : 'Is loading'}
+        {this.props.user.name ? <Redirect to="/" /> : 'Is loading'}
       </Layout>
     );
   }
